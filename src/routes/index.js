@@ -1,18 +1,17 @@
 const express = require('express');
 
 const router = express.Router();
-const api = require('../services/api.service');
 
-const Character = require('../models/character');
+const CharacterService = require('../services/character.service');
+
 
 router.get('/', async (req, res) => {
-  const responseData = await api.getStructuredData();
-  res.json(responseData);
-});
-
-router.get('/foo', async (req, res) => {
-  const data = await Character.findAll();
-  res.json(data);
+  const queryParams = {
+    order: req.query.order,
+    character: req.query.character,
+  };
+  const characterList = await CharacterService.getCharacterList(queryParams);
+  res.json(characterList);
 });
 
 module.exports = router;
