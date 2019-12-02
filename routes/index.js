@@ -7,7 +7,6 @@ const Character = require('../models/character');
 
 router.get('/', async (req, res) => {
   const connection = require('../connection/connection');
-  console.log(connection);
   const responseData = await api.getStructuredData();
   res.json(responseData);
 });
