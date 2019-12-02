@@ -1,5 +1,5 @@
-const Character = require('../models/character');
 const Sequelize = require('sequelize');
+const Character = require('../models/character');
 
 function updateDatabase(data) {
   Character.bulkCreate(data, { ignoreDuplicates: true });
