@@ -4,7 +4,6 @@ const router = express.Router();
 
 const CharacterService = require('../services/character.service');
 
-
 router.get('/', async (req, res) => {
   const queryParams = {
     order: req.query.order,
