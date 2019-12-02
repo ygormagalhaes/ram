@@ -4,7 +4,10 @@ const router = express.Router();
 
 const swaggerUi = require('swagger-ui-express');
 
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('../swagger.yaml');
+
 router.use('/', swaggerUi.serve);
-router.get('/', swaggerUi.setup('../swagger.json'));
+router.get('/', swaggerUi.setup(swaggerDocument));
 
 module.exports = router;

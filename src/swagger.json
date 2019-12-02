@@ -1,1 +1,146 @@
-{"swagger":"2.0","info":{"description":"This is an online swagger codegen server.  You can find out more at https://github.com/swagger-api/swagger-codegen or on [irc.freenode.net, #swagger](http://swagger.io/irc/).","version":"2.4.10","title":"Swagger Generator","termsOfService":"http://swagger.io/terms/","contact":{"name":"apiteam@swagger.io"},"license":{"name":"Apache 2.0","url":"http://www.apache.org/licenses/LICENSE-2.0.html"}},"basePath":"/api","tags":[{"name":"gen"},{"name":"clients"},{"name":"servers"}],"paths":{"/gen/clients/{language}":{"get":{"tags":["clients"],"summary":"Returns options for a client library","description":"","operationId":"getClientOptions","produces":["application/json"],"parameters":[{"name":"language","in":"path","description":"The target language for the client library","required":true,"type":"string","enum":["ada","akka-scala","android","apex","bash","clojure","cpprest","csharp","csharp-dotnet2","cwiki","dart","dart-jaguar","dynamic-html","eiffel","elixir","elm","erlang-client","flash","go","groovy","haskell-http-client","html","html2","java","javascript","javascript-closure-angular","jaxrs-cxf-client","jmeter","kotlin","lua","objc","perl","php","powershell","python","qt5cpp","r","ruby","rust","scala","scala-gatling","scalaz","swagger","swagger-yaml","swift","swift3","swift4","swift5","tizen","typescript-angular","typescript-angularjs","typescript-aurelia","typescript-fetch","typescript-inversify","typescript-jquery","typescript-node"]}],"responses":{"200":{"description":"successful operation","schema":{"type":"object","additionalProperties":{"$ref":"#/definitions/CliOption"}}}}},"post":{"tags":["clients"],"summary":"Generates a client library","description":"Accepts a `GeneratorInput` options map for spec location and generation options","operationId":"generateClient","parameters":[{"name":"language","in":"path","description":"The target language for the client library","required":true,"type":"string","enum":["ada","akka-scala","android","apex","bash","clojure","cpprest","csharp","csharp-dotnet2","cwiki","dart","dart-jaguar","dynamic-html","eiffel","elixir","elm","erlang-client","flash","go","groovy","haskell-http-client","html","html2","java","javascript","javascript-closure-angular","jaxrs-cxf-client","jmeter","kotlin","lua","objc","perl","php","powershell","python","qt5cpp","r","ruby","rust","scala","scala-gatling","scalaz","swagger","swagger-yaml","swift","swift3","swift4","swift5","tizen","typescript-angular","typescript-angularjs","typescript-aurelia","typescript-fetch","typescript-inversify","typescript-jquery","typescript-node"]},{"in":"body","name":"body","description":"Configuration for building the client library","required":true,"schema":{"$ref":"#/definitions/GeneratorInput"}}],"responses":{"200":{"description":"successful operation","schema":{"$ref":"#/definitions/ResponseCode"}}}}},"/gen/servers/{framework}":{"get":{"tags":["servers"],"summary":"Returns options for a server framework","description":"","operationId":"getServerOptions","produces":["application/json"],"parameters":[{"name":"framework","in":"path","description":"The target language for the server framework","required":true,"type":"string","enum":["ada-server","aspnetcore","erlang-server","finch","go-server","haskell","inflector","java-pkmst","java-play-framework","java-vertx","jaxrs","jaxrs-cxf","jaxrs-cxf-cdi","jaxrs-resteasy","jaxrs-resteasy-eap","jaxrs-spec","kotlin-server","lumen","msf4j","nancyfx","nodejs-server","php-silex","php-symfony","pistache-server","python-flask","rails5","restbed","rust-server","scala-lagom-server","scalatra","sinatra","slim","spring","undertow","ze-ph"]}],"responses":{"200":{"description":"successful operation","schema":{"type":"object","additionalProperties":{"$ref":"#/definitions/CliOption"}}}}},"post":{"tags":["servers"],"summary":"Generates a server library","description":"Accepts a `GeneratorInput` options map for spec location and generation options.","operationId":"generateServerForLanguage","parameters":[{"name":"framework","in":"path","description":"framework","required":true,"type":"string","enum":["ada-server","aspnetcore","erlang-server","finch","go-server","haskell","inflector","java-pkmst","java-play-framework","java-vertx","jaxrs","jaxrs-cxf","jaxrs-cxf-cdi","jaxrs-resteasy","jaxrs-resteasy-eap","jaxrs-spec","kotlin-server","lumen","msf4j","nancyfx","nodejs-server","php-silex","php-symfony","pistache-server","python-flask","rails5","restbed","rust-server","scala-lagom-server","scalatra","sinatra","slim","spring","undertow","ze-ph"]},{"in":"body","name":"body","description":"parameters","required":true,"schema":{"$ref":"#/definitions/GeneratorInput"}}],"responses":{"200":{"description":"successful operation","schema":{"$ref":"#/definitions/ResponseCode"}}}}},"/gen/clients":{"get":{"tags":["clients"],"summary":"Gets languages supported by the client generator","description":"","operationId":"clientOptions","parameters":[],"responses":{"200":{"description":"successful operation","schema":{"type":"array","items":{"type":"string"}}}}}},"/gen/servers":{"get":{"tags":["servers"],"summary":"Gets languages supported by the server generator","description":"","operationId":"serverOptions","parameters":[],"responses":{"200":{"description":"successful operation","schema":{"type":"array","items":{"type":"string"}}}}}},"/gen/download/{fileId}":{"get":{"tags":["clients","servers"],"summary":"Downloads a pre-generated file","description":"A valid `fileId` is generated by the `/clients/{language}` or `/servers/{language}` POST operations.  The fileId code can be used just once, after which a new `fileId` will need to be requested.","operationId":"downloadFile","produces":["application/octet-stream"],"parameters":[{"name":"fileId","in":"path","required":true,"type":"string"}],"responses":{"200":{"description":"successful operation","schema":{"type":"string"}}}}}},"definitions":{"ResponseCode":{"type":"object","properties":{"code":{"type":"string","example":"d40029be-eda6-4d62-b1ef-d05e2e91a72a","description":"File download code"},"link":{"type":"string","example":"http://generator.swagger.io:80/api/gen/download/d40029be-eda6-4d62-b1ef-d05e2e91a72a","description":"URL for fetching the generated client"}}},"AuthorizationValue":{"type":"object","properties":{"value":{"type":"string"},"type":{"type":"string"},"keyName":{"type":"string"}}},"GeneratorInput":{"type":"object","properties":{"spec":{"type":"object"},"options":{"type":"object","additionalProperties":{"type":"string"}},"swaggerUrl":{"type":"string","example":"http://petstore.swagger.io/v2/swagger.json"},"authorizationValue":{"$ref":"#/definitions/AuthorizationValue"},"securityDefinition":{"$ref":"#/definitions/SecuritySchemeDefinition"}}},"SecuritySchemeDefinition":{"type":"object","properties":{"type":{"type":"string"},"description":{"type":"string"}}},"CliOption":{"type":"object","properties":{"optionName":{"type":"string"},"description":{"type":"string"},"type":{"type":"string","description":"Data type is based on the types supported by the JSON-Schema"},"default":{"type":"string"},"enum":{"type":"object","additionalProperties":{"type":"string"}}}}}}
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "Swagger API Team",
+      "email": "apiteam@swagger.io",
+      "url": "http://swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "petstore.swagger.io",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pets": {
+      "get": {
+        "description": "Returns all pets from the system that the user has access to\nNam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Aenean at gravida augue, ac iaculis sem. Curabitur odio lorem, ornare eget elementum nec, cursus id lectus. Duis mi turpis, pulvinar ac eros ac, tincidunt varius justo. In hac habitasse platea dictumst. Integer at adipiscing ante, a sagittis ligula. Aenean pharetra tempor ante molestie imperdiet. Vivamus id aliquam diam. Cras quis velit non tortor eleifend sagittis. Praesent at enim pharetra urna volutpat venenatis eget eget mauris. In eleifend fermentum facilisis. Praesent enim enim, gravida ac sodales sed, placerat id erat. Suspendisse lacus dolor, consectetur non augue vel, vehicula interdum libero. Morbi euismod sagittis libero sed lacinia.\n\nSed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condimentum ligula luctus nec. Phasellus semper velit eget aliquet faucibus. In a mattis elit. Phasellus vel urna viverra, condimentum lorem id, rhoncus nibh. Ut pellentesque posuere elementum. Sed a varius odio. Morbi rhoncus ligula libero, vel eleifend nunc tristique vitae. Fusce et sem dui. Aenean nec scelerisque tortor. Fusce malesuada accumsan magna vel tempus. Quisque mollis felis eu dolor tristique, sit amet auctor felis gravida. Sed libero lorem, molestie sed nisl in, accumsan tempor nisi. Fusce sollicitudin massa ut lacinia mattis. Sed vel eleifend lorem. Pellentesque vitae felis pretium, pulvinar elit eu, euismod sapien.\n",
+        "operationId": "findPets",
+        "parameters": [
+          {
+            "$ref": "parameters.json#/tagsParam"
+          },
+          {
+            "$ref": "parameters.json#/limitsParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "Pet.json"
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "../common/Error.json"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new pet in the store.  Duplicates are allowed",
+        "operationId": "addPet",
+        "parameters": [
+          {
+            "name": "pet",
+            "in": "body",
+            "description": "Pet to add to the store",
+            "required": true,
+            "schema": {
+              "$ref": "NewPet.json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "schema": {
+              "$ref": "Pet.json"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "../common/Error.json"
+            }
+          }
+        }
+      }
+    },
+    "/pets/{id}": {
+      "get": {
+        "description": "Returns a user based on a single ID, if the user does not have access to the pet",
+        "operationId": "find pet by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "pet response",
+            "schema": {
+              "$ref": "Pet.json"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "../common/Error.json"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "deletes a single pet based on the ID supplied",
+        "operationId": "deletePet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "pet deleted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "../common/Error.json"
+            }
+          }
+        }
+      }
+    }
+  }
+}
